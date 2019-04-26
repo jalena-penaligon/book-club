@@ -11,6 +11,7 @@ RSpec.describe 'book: index page', type: :feature do
     @review_2 = @book_1.reviews.create(user:"User 2", title:"Title", rating: 2, description:"Description")
     @review_3 = @book_2.reviews.create(user:"User 3", title:"Title", rating: 3, description:"Description")
     @review_4 = @book_2.reviews.create(user:"User 4", title:"Title", rating: 5, description:"Description")
+    @review_4 = @book_1.reviews.create(user:"User 4", title:"Title", rating: 5, description:"Description")
   end
 
   describe 'when a user visits the book index' do
@@ -60,11 +61,11 @@ RSpec.describe 'book: index page', type: :feature do
     it 'shows average rating' do
       visit books_path
       within '#ringworld' do
-        expect(page).to have_content("Average Rating: #{@book_1.average_rating}")
+        expect(page).to have_content("Average Rating: #{@book_1.average_rating.round(2)}")
       end
 
       within '#the-goliath-stone' do
-        expect(page).to have_content("Average Rating: #{@book_2.average_rating}")
+        expect(page).to have_content("Average Rating: #{@book_2.average_rating.round(2)}")
       end
     end
   end
